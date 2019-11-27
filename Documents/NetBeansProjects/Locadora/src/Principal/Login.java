@@ -45,6 +45,7 @@ public class Login extends javax.swing.JFrame {
 
         jButton1.setText("Sair");
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Entrar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
