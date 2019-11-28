@@ -10,5 +10,7 @@ package Modelo;
  * @author Aluno
  */
 public class Categoria {
-    
+    //atrubustos
+    private int codigo;
+    private String nome;
 }
