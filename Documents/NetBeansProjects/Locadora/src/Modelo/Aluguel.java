@@ -11,4 +11,11 @@ package Modelo;
  */
 public class Aluguel {
     
-}
+    private int cog;
+    private int coddvd;
+    private int cliente;
+    private String data_aluguel;
+    private String horario;
+    private String data_devolucao;
+            
+} 

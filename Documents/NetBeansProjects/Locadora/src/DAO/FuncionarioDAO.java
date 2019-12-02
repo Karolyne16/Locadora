@@ -9,6 +9,30 @@ package DAO;
  *
  * @author Aluno
  */
-public class FuncionarioDAO {
+public class FuncionarioDAO extends ExecuteSQL {
     
-}
+    public FuncionarioDAO(Connection con){
+        super(con);
+    }
+    public boolean Logar (String login, String senha){
+       boolean finalResult = false;
+       try {
+          String consulta = "select login, senha from funcionario"
+        + "where login = '"+ login + "' and senha = '" + senha + "'";
+          PreparedStatement ps = getCon().preparedStatement (consulta);
+          ResultSEt rs = ps.executeQuery();
+          
+          if (rs != null){
+              while (rs.next()){
+                  Funcionaio a = new Funcionario();
+                  a.setLogin(rs.getString(1));
+                  a.serSenha(rs.getString(2));
+                  finalResult = true;
+              }
+          }
+     } catch (SQLException ex) {
+      ex.getMessage();
+     }
+     return finalResult;
+             
+    }}
