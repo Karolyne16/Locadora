@@ -10,5 +10,6 @@ package Modelo;
  * @author Aluno
  */
 public class Listar {
-    
+    String sql = "select idcliente, nome,rg,cp,telefone,emial from cliente";
+    List 
 }
