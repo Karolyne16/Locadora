@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package DAO;
-
+import java.sql.*;
 /**
  *
  * @author Aluno
@@ -14,7 +14,7 @@ public class ExecuteSQL {
     private Connection con;
     
     public ExecuteSQL (Connection con) {
-        setCon (con);
+        setCon(con);
     }
     
     public Connection getCon(){  

@@ -5,6 +5,8 @@
  */
 package Principal;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aluno
@@ -17,6 +19,10 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(this);
+    }
+
+    Login() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -47,6 +53,11 @@ public class Login extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Entrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +97,45 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Connection con = Conecao.AbrirConecao();
+        FuncionarioDAO sql = new FuncionarioDAO (con);
+        String login = tfUsuario.getTExt ();
+        String senha = pfSenha.getText();
+        if (login.equalsIgnoreCase ("") || senha.equalsIgnoreCase ("")) {
+            JOptionPane.showMessageDialog (null,"Nenhum campo pode esta Vazio",
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+            tfUsuario.setTExt("");
+            pfSenhasetText("");
+        } else {
+            if (sql.Logar (login, senha) == true) {
+                new Thread () {
+                    public void run()  {
+                        for (int i = 0; i <101; i++)  {
+                            jProgressBr.setValue (i);
+                            try {
+                                Thread.sleep (35);
+                            } catch (Exception ex) {
+                                ex.getMessage();
+                            }
+                        }
+                        new Menu()setVisible (true);
+                        dispose();
+                        
+                   }
+              } .star();
+           }else {
+                JOptionPane.showMessageDialog (null,"Usuario ou Senha Invalidos",
+                        "Video Locadora", JOptionPane.ERROR_MESSAGE);
+                  tfUsuario.setText ("");
+                  pfSenha.setText("");
+                }
+            }
+    }
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

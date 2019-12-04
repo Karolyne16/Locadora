@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author Aluno
  */
 public class ConecaoDAO {
-    public static Connection AbrirConecao[] {
+    public static Connection AbrirConecao() {
         Connection con = null;
         try {
               Class.forName("com.mysql.jdbc.driver");
