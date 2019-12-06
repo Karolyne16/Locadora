@@ -5,7 +5,8 @@
  */
 package Modelo;
 
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.*;
 
 /**
  *
@@ -19,22 +20,27 @@ public class Listar {
         PreparedStatement ps = getCon().prepareStatement (sql);
         ResultSet rs = ps.executeQuery();
         
-        if (rs !=null) {
-             while (rs.next()){
-                Cliente a = new Cliente();
-                a.setCodigo (rs.getInt(1));
-                a.setNome (rs.getString(2));
-                a.setRG (rs.getString(3));
-                a.setCPF(rs.getString(4));
-                a.setTelefone(rs.getString(5));
-                a.setEmail(rs.getString(6));
-                
-                lista.add(a);
+            if (rs !=null) {
+                 while (rs.next()){
+                    Cliente a = new Cliente();
+                    a.setCodigo (rs.getInt(1));
+                    a.setNome (rs.getString(2));
+                    a.setRG (rs.getString(3));
+                    a.setCPF(rs.getString(4));
+                    a.setTelefone(rs.getString(5));
+                    a.setEmail(rs.getString(6));
+
+                    lista.add(a);
+            }
+            return lista;
+        }else{
+           return null;   
         }
-        return lista;
-    }else{
-       return null;    
-}catch  (SQLExcepition e)  {
+    }catch  (SQLException e)  {
         return null;
         }
-     }
+ 
+}
+     
+     
+} 

@@ -5,7 +5,8 @@
  */
 package Principal;
 
-import DAO.*;
+import DAO.Conexao;
+import DAO.FuncionarioDAO;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -22,10 +23,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
     }
-
-    Login() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,6 +40,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -78,6 +77,10 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(tfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                         .addComponent(pfSenha)))
                 .addContainerGap(113, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,20 +97,22 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Connection con = ConecaoDAO.AbrirConecao();
+        Connection con = Conexao.AbrirConecao();
         FuncionarioDAO sql = new FuncionarioDAO (con);
         String login = tfUsuario.getText();
         String senha = pfSenha.getText();
         if (login.equalsIgnoreCase ("") || senha.equalsIgnoreCase ("")) {
             JOptionPane.showMessageDialog (null,"Nenhum campo pode esta Vazio",
-                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+                "Video Locadora", JOptionPane.WARNING_MESSAGE);
             tfUsuario.setText("");
             pfSenha.setText("");
         } else {
@@ -115,28 +120,26 @@ public class Login extends javax.swing.JFrame {
                 new Thread () {
                     public void run()  {
                         for (int i = 0; i <101; i++)  {
-                            jProgressBr.setValue (i);
+                            jProgressBar1.setValue (i);
                             try {
                                 Thread.sleep (35);
                             } catch (Exception ex) {
                                 ex.getMessage();
                             }
                         }
-                        new Menu()setVisible (true);
+                        new Menu().setVisible(true);
                         dispose();
-                        
-                   }
-              } .star();
-           }else {
+
+                    }
+                }.start();
+            }else {
                 JOptionPane.showMessageDialog (null,"Usuario ou Senha Invalidos",
-                        "Video Locadora", JOptionPane.ERROR_MESSAGE);
-                  tfUsuario.setText ("");
-                  pfSenha.setText("");
-                }
+                    "Video Locadora", JOptionPane.ERROR_MESSAGE);
+                tfUsuario.setText ("");
+                pfSenha.setText("");
             }
-    }
-        
-        
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -179,6 +182,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables

@@ -5,14 +5,16 @@
  */
 package DAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Aluno
  */
-public class ConecaoDAO {
+public class Conexao {
+    
     public static Connection AbrirConecao() {
         Connection con = null;
         try {
@@ -28,7 +30,7 @@ public class ConecaoDAO {
         return con;      
   }
          
-  public static void FecharConecao (Connection con){
+  public static void FecharConexao (Connection con){
       try {
           con.close();
           
