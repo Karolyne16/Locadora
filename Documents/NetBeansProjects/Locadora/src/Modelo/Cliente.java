@@ -5,6 +5,12 @@
  */
 package Modelo;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Aluno
@@ -110,5 +116,11 @@ public class Cliente {
     public void setCEP(String CEP) {
         this.CEP = CEP;
     }
-    
+
+    public void setNumero(String numero) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+ 
+   
 }
+     

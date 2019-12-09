@@ -77,18 +77,7 @@ public class ClienteDAO extends ExecuteSQL {
     }catch  (SQLException e)  {
         return null;
         }
- 
+      
+}   
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-         
-    }
 
