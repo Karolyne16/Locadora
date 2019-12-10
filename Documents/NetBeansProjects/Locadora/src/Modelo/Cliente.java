@@ -28,6 +28,7 @@ public class Cliente {
     private String Rua;
     private int Numero;
     private String CEP;
+    public String getNome;
 
     public int getCodigo() {
         return codigo;

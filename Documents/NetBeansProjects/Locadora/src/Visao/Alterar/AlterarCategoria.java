@@ -191,6 +191,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
             public void run() {
                 new AlterarCategoria().setVisible(true);
             }
+            
         });
     }
 
@@ -211,4 +212,15 @@ public class AlterarCategoria extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+
+     
+
+
+
 }
+
+
+
+
+
+

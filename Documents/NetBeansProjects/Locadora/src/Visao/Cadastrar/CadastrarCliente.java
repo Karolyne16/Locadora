@@ -9,6 +9,8 @@ import DAO.ClienteDAO;
 import DAO.Conexao;
 import Modelo.Cliente;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -369,4 +371,12 @@ public class CadastrarCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTF_Telefone;
     private javax.swing.JTextField jTextField10;
     // End of variables declaration//GEN-END:variables
-}
+
+
+          
+            
+            }
+
+
+
+
