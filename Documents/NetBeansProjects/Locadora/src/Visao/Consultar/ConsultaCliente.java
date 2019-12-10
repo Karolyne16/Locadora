@@ -5,6 +5,14 @@
  */
 package Visao.Consultar;
 
+import DAO.ClienteDAO;
+import DAO.Conexao;
+import Modelo.Cliente;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Aluno
@@ -16,6 +24,9 @@ public class ConsultaCliente extends javax.swing.JFrame {
      */
     public ConsultaCliente() {
         initComponents();
+        setTitle("Video Locadora");
+        setSize(970,380);
+        AtualizaTable();
     }
 
     /**
@@ -34,7 +45,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,7 +54,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
         jLabel2.setText("Pesquisa po Codigo");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -51,7 +62,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 "Codigo", "Cliente", "RG", "CPF", "Telefone", "Email"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         jButton4.setText("Todos");
 
@@ -145,8 +156,42 @@ public class ConsultaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+    private void AtualizaTable() {
+        
+        Connection con = Conexao.AbrirConexao();
+        ClienteDAO bd = new ClienteDAO (con);
+        List<Cliente> lista = new ArrayList<>();
+        lista = bd.ListarCliente();
+        DefaultTableModel tbm =
+                (DefaultTableModel) jTable.getModel();
+        while (tbm.getRowCount() > 0){
+             tbm.removeRow(0);
+    }
+    int i = 0;
+    for (Cliente tab : lista){
+        tbm.addRow(new String [1]);
+        jTable.setValueAt (tab.getCodigo(), i, 0);
+        jTable.setValueAt (tab.getNome(), i, 1);
+        jTable.setValueAt (tab.getRG(), i, 2);
+        jTable.setValueAt (tab.getCPF(),1, 3);
+        jTable.setValueAt (tab.getTelefone(),i, 4);
+        jTable.setValueAt (tab.getEmail(),i, 5);
+        i++;
+        
+        
+        
+        
+        
+    }
+    Conexao.FecharConexao(con);                 
+    }
+
+    private void white(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

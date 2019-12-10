@@ -76,8 +76,19 @@ public class ClienteDAO extends ExecuteSQL {
         }
     }catch  (SQLException e)  {
         return null;
-        }
+    }
       
-}   
 }
+    public List<Cliente> Pesquisar_Nome_Cliente(String nome){
+        String sql = "select idcliente, nome, RG, CPF, Telefone, Email"
+                + "from cliente where nome Like '" + nome + "%'";
+        
+        
+    
+    
+    
+    
+    
+}
+
 
