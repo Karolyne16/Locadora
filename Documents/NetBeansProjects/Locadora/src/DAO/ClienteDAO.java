@@ -78,17 +78,62 @@ public class ClienteDAO extends ExecuteSQL {
         return null;
     }
       
-}
+    }
+    
     public List<Cliente> Pesquisar_Nome_Cliente(String nome){
         String sql = "select idcliente, nome, RG, CPF, Telefone, Email"
                 + "from cliente where nome Like '" + nome + "%'";
         
+        return null;
+    }
+    
+    public boolean Testar_Cliente(int cod) throws SQLException{
+        boolean Resultado = false;
+        try {
+            String sql = "select * from cliente where idcliente == "+ cod + "";
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs != null)  {
+                while (rs.next()){
+                    Resultado = true;
+                    
+                }
+                
+            }
+        }catch (SQLException ex){
+            String message = ex.getMessage();
+        }
+        return Resultado;
+    }
+    
+        public List<Cliente> Capturar_Cliente (int cod){
         
-    
-    
-    
-    
-    
-}
-
-
+            String sql = "select * from cliente where idcliente =" + cod + "";
+            List<Cliente> lista = new ArrayList<>();
+            
+            try {
+                PreparedStatement ps = getCon().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                if (rs !=null) {
+                    while (rs.next()){
+                        Cliente a = new Cliente();
+                        a.setCodigo(rs.getInt(1));
+                        a.setNome(rs.getString(2));
+                        
+                        
+                    }
+                    return lista;
+                }else{
+                    return null;
+                }
+            }catch(SQLException e){
+                return null;   
+            }
+        
+        }
+         
+        
+        
+        
+ }
