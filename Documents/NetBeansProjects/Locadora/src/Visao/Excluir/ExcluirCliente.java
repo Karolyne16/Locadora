@@ -5,6 +5,14 @@
  */
 package Visao.Excluir;
 
+import DAO.*;
+import Modelo.Cliente;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aluno
@@ -28,9 +36,9 @@ public class ExcluirCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jCB_Nome = new javax.swing.JTextField();
+        JCB_Nome = new javax.swing.JComboBox<>();
+        Excluir = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -38,9 +46,19 @@ public class ExcluirCliente extends javax.swing.JFrame {
 
         jLabel1.setText("Nome:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JCB_Nome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JCB_Nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JCB_NomeActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("OK");
+        Excluir.setText("OK");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -56,17 +74,17 @@ public class ExcluirCliente extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(61, 61, 61)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGap(85, 85, 85)
+                            .addComponent(Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
                             .addComponent(jButton2))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(24, 24, 24)
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(JCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -76,17 +94,60 @@ public class ExcluirCliente extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JCB_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(Excluir)
                     .addComponent(jButton2))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JCB_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCB_NomeActionPerformed
+
+    }//GEN-LAST:event_JCB_NomeActionPerformed
+
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+        String nome = jCB_Nome.getSelectedItem().toString();
+        
+        
+        Connection con = Conexao.AbrirConecao();
+        ClienteDAO sql = new ClienteDAO(con);
+        if (nome.equals("")){
+            JOptionPane.showMessageDialog(null, "Nenhum nome selecionado",
+                    "Video Locadora", JOptionPane.WARNING_MESSAGE);
+        }else{
+            String codigo = null;
+        int b = JOptionPane.showConfirmDialog(null, "Deseja realmente Excluir"
+               + "\n ("+ codigo +") (" + nome + ")","video Locadora",
+               JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (b == 0){  
+                int cod = Integer.parseInt(codigo);
+                Cliente a = null;
+                a.setNome (nome);
+                a.setCodigo (cod);
+                try {
+                    sql.Excluir_Cliente(a);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ExcluirCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Conexao.FecharConexao(con);
+                dispose();
+                
+                
+            } 
+            
+        }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_ExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,11 +185,32 @@ public class ExcluirCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Excluir;
+    private javax.swing.JComboBox<String> JCB_Nome;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField jCB_Nome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+          private void AtualizaCombo() throws SQLException {
+              Connection con = Conexao.AbrirConexao();
+              ClienteDAO sql = new ClienteDAO(con);
+              List<Cliente> lista = new ArrayList<>();
+              lista = sql.ListarComboCliente();
+              jCB_Nome.addItem("");
+              
+              for (Cliente b : lista) {
+                  
+                  jCB_Nome.addItem(b.getNome());
+              }
+              Conexao.FecharConexao(con);
+              
+          }
+
+
+
+
+
+
 }

@@ -181,21 +181,93 @@ public class ClienteDAO extends ExecuteSQL {
             public List<Cliente> ListarComboCliente() throws SQLException {
                 List<Cliente> lista = new ArrayList<>();
                 try {
+                    String sql = null;
                     PreparedStatement ps = getCon().prepareStatement(sql);
                     ResultSet rs = ps.executeQuery ();
                     
                     if (rs != null) {
+                        while (rs.next()) {
+                            
+                            Cliente a = new Cliente();
+                            a.setNome(rs.getString(1));
+                            lista.add(a);
+                        }
+                return null;
+                    
+                      
+            }else {
+               return null;
+                       
+            }
+                }catch (SQLException e){
+                return null;
+            }             
+                
+                
+                     
+                
+                
+          }
+               
+            public List<Cliente> ConsultaCodigoCliente (String nome) throws SQLException{
+                  String sql  = "select idcliente from cliente where neme = '"+ nome + "'";
+                  List<Cliente> lista = new ArrayList<>();
+                  try {
+                      PreparedStatement ps = getCon().prepareStatement(sql);
+                      ResultSet rs = ps.executeQuery();
+                      
+                      if (rs !=null){
+                          while (rs.next()){
+                              
+                              Cliente a = new Cliente();
+                              a.setCodigo(rs.getInt(1));
+                              lista.add(a);
+                          }
+                              return lista;
+                          }else{
+                          return null;
+                      }
+                      }catch (SQLException e){
+                          return null;
+                      }
+            }
+
+    public List<Cliente> CapturarCliente(int cod) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+               
+                public String Excluir_Cliente(Cliente a) throws SQLException {
+                    String sql = "delete from cliente where idcliente = ?";
+                    
+                    try {
+                       PreparedStatement ps = getCon().prepareStatement(sql);
+                       ps.setInt (1, a.getCodigo());
+                       ps.setString(2, a.getNome());
+                       if (ps.executeUpdate() > 0){
+                           return "Excluido com sucesso.";
+                       
+                    }else{
+                            return "Erro ao excluir";
+                    }
+                        
+                    }catch (SQLException e){
+                        return e.getMessage();
+                    }
                     
                 }
                 
-                
-                
-                
-                
-            }
-   
-                       
-               }
+    
+    
+    
+             
+    
+}
+                  
+            
+            
+            
+            
+            
 
 
 
